@@ -635,13 +635,14 @@ export default class Form<
    * @param event - The submit HTML form event
    */
   onSubmit = (event: React.FormEvent<any>) => {
-    event.preventDefault();
     if (event.target !== event.currentTarget) {
       return;
     }
-
-    event.persist();
     const { omitExtraData, extraErrors, noValidate, onSubmit } = this.props;
+    if (onSubmit) {
+      event.preventDefault();
+      event.persist();
+    }
     let { formData: newFormData } = this.state;
     const { schema, schemaUtils } = this.state;
 
